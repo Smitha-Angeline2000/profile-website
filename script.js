@@ -236,3 +236,41 @@ if (form) {
   });
 
 }
+
+// ======================================
+// SCROLL REVEAL SYSTEM
+// ======================================
+
+const reveals =
+  document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+  );
+
+function revealOnScroll() {
+
+  const windowHeight =
+    window.innerHeight;
+
+  reveals.forEach((element) => {
+
+    const revealTop =
+      element.getBoundingClientRect().top;
+
+    const revealPoint = 120;
+
+    if (revealTop < windowHeight - revealPoint) {
+
+      element.classList.add("active");
+
+    }
+
+  });
+
+}
+
+window.addEventListener(
+  "scroll",
+  revealOnScroll
+);
+
+revealOnScroll();

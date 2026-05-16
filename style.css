@@ -1405,3 +1405,103 @@ footer p {
 
   color: white;
 }
+
+/* ========================================= */
+/* BASE SCROLL ANIMATIONS */
+/* ========================================= */
+
+.reveal {
+  opacity: 0;
+
+  transform: translateY(60px);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+
+  transform: translateX(-80px);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.reveal-left.active {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+
+  transform: translateX(80px);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.reveal-right.active {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+
+  transform: scale(0.85);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+
+.reveal-scale.active {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+.interest-pill {
+
+  animation:
+    floatPill 4s ease-in-out infinite;
+}
+
+.interest-pill:nth-child(2n) {
+
+  animation-delay: 1s;
+}
+
+.interest-pill:nth-child(3n) {
+
+  animation-delay: 2s;
+}
+
+@keyframes floatPill {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+
+}
