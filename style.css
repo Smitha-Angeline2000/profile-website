@@ -813,36 +813,52 @@ footer p {
 }
 
 /* ========================================= */
-/* MOBILE PORTRAIT MODE */
+/* MOBILE NAVIGATION */
 /* ========================================= */
 
-@media screen and (max-width: 768px) and (orientation: portrait) {
-
-  /* ========================================= */
-  /* NAVBAR */
-  /* ========================================= */
+@media screen and (max-width: 768px) {
 
   nav {
-    flex-direction: column;
+    padding: 18px 6%;
 
-    padding: 18px 5%;
+    flex-direction: row;
+  }
 
-    gap: 18px;
+  .menu-toggle {
+    display: block;
   }
 
   nav ul {
-    justify-content: center;
+    position: absolute;
 
-    gap: 14px;
+    top: 100%;
+
+    left: 0;
+
+    width: 100%;
+
+    background: rgba(5, 8, 22, 0.98);
+
+    backdrop-filter: blur(12px);
+
+    flex-direction: column;
+
+    gap: 25px;
+
+    padding: 30px 0;
+
+    display: none;
+  }
+
+  nav ul.active {
+    display: flex;
   }
 
   nav ul li a {
-    font-size: 14px;
+    font-size: 18px;
   }
 
-  /* ========================================= */
-  /* HERO SECTION */
-  /* ========================================= */
+  /* HERO */
 
   .hero {
     flex-direction: column-reverse;
@@ -850,18 +866,12 @@ footer p {
     text-align: center;
 
     gap: 50px;
-
-    padding-top: 40px;
   }
-
-  /* ========================================= */
-  /* HERO TEXT */
-  /* ========================================= */
 
   .hero-text h1 {
     font-size: 42px;
 
-    line-height: 1.15;
+    line-height: 1.1;
   }
 
   .hero-text h2 {
@@ -876,18 +886,14 @@ footer p {
     justify-content: center;
   }
 
-  /* ========================================= */
   /* PROFILE IMAGE */
-  /* ========================================= */
 
   .hero-image img {
     width: 220px;
     height: 220px;
   }
 
-  /* ========================================= */
-  /* ORBIT RINGS */
-  /* ========================================= */
+  /* ORBITS */
 
   .orbit1 {
     width: 280px;
@@ -904,42 +910,22 @@ footer p {
     height: 400px;
   }
 
-  /* ========================================= */
-  /* GLOW */
-  /* ========================================= */
-
   .profile-glow {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
 
-  /* ========================================= */
-  /* SECTION TITLES */
-  /* ========================================= */
+}
+/* ========================================= */
+/* HAMBURGER MENU */
+/* ========================================= */
 
-  .section-title {
-    font-size: 34px;
-  }
+.menu-toggle {
+  display: none;
 
-  /* ========================================= */
-  /* CARDS */
-  /* ========================================= */
+  font-size: 32px;
 
-  .card-container {
-    grid-template-columns: 1fr;
-  }
+  color: white;
 
-  .card,
-  .project-card {
-    padding: 24px;
-  }
-
-  /* ========================================= */
-  /* PROJECT IMAGE */
-  /* ========================================= */
-
-  .project-image {
-    height: 190px;
-  }
-
+  cursor: pointer;
 }
