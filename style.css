@@ -1177,3 +1177,231 @@ footer p {
 
   font-size: 20px;
 }
+
+/* ========================================= */
+/* HOMEPAGE LAYOUT */
+/* ========================================= */
+
+.homepage-container,
+.section-heading {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section-tag {
+  color: #60a5fa;
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  font-weight: 600;
+
+  margin-bottom: 18px;
+}
+
+.section-heading h2,
+.homepage-summary h2 {
+  font-size: 48px;
+
+  margin-bottom: 30px;
+
+  color: white;
+}
+
+.homepage-summary p {
+  color: #cbd5e1;
+
+  font-size: 18px;
+
+  line-height: 2;
+
+  margin-bottom: 25px;
+
+  max-width: 950px;
+}
+
+/* ========================================= */
+/* QUICK ACADEMICS */
+/* ========================================= */
+
+.quick-academic-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 25px;
+
+  margin-top: 50px;
+}
+
+.quick-academic-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 23, 42, 0.95),
+      rgba(10, 15, 30, 0.95)
+    );
+
+  border:
+    1px solid rgba(96, 165, 250, 0.12);
+
+  border-radius: 24px;
+
+  padding: 35px;
+
+  text-align: center;
+
+  transition: 0.3s ease;
+}
+
+.quick-academic-card:hover {
+  transform: translateY(-8px);
+
+  border-color:
+    rgba(96, 165, 250, 0.35);
+}
+
+.quick-score {
+  font-size: 56px;
+
+  font-weight: 700;
+
+  margin: 20px 0;
+
+  color: #93c5fd;
+
+  text-shadow:
+    0 0 18px rgba(96, 165, 250, 0.3);
+}
+
+/* ========================================= */
+/* FEATURED PROJECTS */
+/* ========================================= */
+
+.featured-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 30px;
+
+  margin-top: 50px;
+}
+
+.featured-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 23, 42, 0.95),
+      rgba(10, 15, 30, 0.95)
+    );
+
+  border:
+    1px solid rgba(96, 165, 250, 0.12);
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  transition: 0.3s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-10px);
+
+  border-color:
+    rgba(96, 165, 250, 0.35);
+}
+
+.featured-card img {
+  width: 100%;
+  height: 220px;
+
+  object-fit: cover;
+}
+
+.featured-card h3 {
+  padding: 25px 25px 10px;
+
+  color: white;
+
+  font-size: 24px;
+}
+
+.featured-card p {
+  padding: 0 25px;
+
+  color: #cbd5e1;
+
+  margin-bottom: 25px;
+}
+
+.featured-btn {
+  margin: 0 25px 25px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  color: white;
+
+  border:
+    1px solid rgba(96, 165, 250, 0.15);
+
+  transition: 0.3s ease;
+}
+
+.featured-btn:hover {
+  transform: translateY(-4px);
+
+  border-color:
+    rgba(96, 165, 250, 0.35);
+}
+
+/* ========================================= */
+/* INTERESTS */
+/* ========================================= */
+
+.interests-grid {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 18px;
+
+  margin-top: 50px;
+}
+
+.interest-pill {
+  padding: 14px 22px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(15, 23, 42, 0.95);
+
+  border:
+    1px solid rgba(96, 165, 250, 0.12);
+
+  color: #cbd5e1;
+
+  transition: 0.3s ease;
+}
+
+.interest-pill:hover {
+  transform: translateY(-4px);
+
+  border-color:
+    rgba(96, 165, 250, 0.35);
+
+  color: white;
+}
