@@ -96,31 +96,50 @@
           Send a Message
         </h3>
 
-        <form>
+        <form
+  action="https://formspree.io/f/xrejnjee"
+  method="POST"
+>
 
-          <input 
-            type="text" 
-            placeholder="Your Name"
-            class="input-field"
-          >
+  <!-- NAME -->
 
-          <input 
-            type="email" 
-            placeholder="Your Email"
-            class="input-field"
-          >
+  <input
+    type="text"
+    name="name"
+    placeholder="Your Name"
+    class="input-field"
+    required
+  >
 
-          <textarea 
-            placeholder="Your Message"
-            rows="6"
-            class="input-field"
-          ></textarea>
+  <!-- EMAIL -->
 
-          <button type="submit" class="btn">
-            Send Message
-          </button>
+  <input
+    type="email"
+    name="email"
+    placeholder="Your Email"
+    class="input-field"
+    required
+  >
 
-        </form>
+  <!-- MESSAGE -->
+
+  <textarea
+    name="message"
+    rows="7"
+    placeholder="Your Message"
+    class="input-field"
+    required
+  ></textarea>
+
+  <!-- BUTTON -->
+
+  <button type="submit" class="btn">
+
+    Send Message
+
+  </button>
+
+</form>
 
       </div>
 
