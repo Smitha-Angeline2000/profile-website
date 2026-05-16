@@ -1149,3 +1149,31 @@ footer p {
 
   color: #60a5fa;
 }
+
+/* ========================================= */
+/* EMAIL DISPLAY */
+/* ========================================= */
+
+.email-display {
+
+  margin-top: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 18px;
+
+  color: #cbd5e1;
+
+  font-weight: 500;
+}
+
+.email-display i {
+
+  color: #60a5fa;
+
+  font-size: 20px;
+}
