@@ -170,3 +170,69 @@ if (menuToggle && navMenu) {
   });
 
 }
+
+// ======================================
+// CONTACT FORM
+// ======================================
+
+const form =
+  document.getElementById("contact-form");
+
+const status =
+  document.getElementById("form-status");
+
+if (form) {
+
+  form.addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    try {
+
+      const response = await fetch(form.action, {
+
+        method: form.method,
+
+        body: data,
+
+        headers: {
+          'Accept': 'application/json'
+        }
+
+      });
+
+      if (response.ok) {
+
+        status.innerHTML =
+          "Message sent successfully.";
+
+        status.style.color =
+          "#60a5fa";
+
+        form.reset();
+
+      } else {
+
+        status.innerHTML =
+          "Something went wrong.";
+
+        status.style.color =
+          "#ef4444";
+
+      }
+
+    } catch(error) {
+
+      status.innerHTML =
+        "Network error.";
+
+      status.style.color =
+        "#ef4444";
+
+    }
+
+  });
+
+}

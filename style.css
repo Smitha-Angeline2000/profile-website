@@ -1095,3 +1095,12 @@ footer p {
   }
 
 }
+
+#form-status {
+
+  margin-top: 20px;
+
+  font-size: 16px;
+
+  font-weight: 500;
+}
