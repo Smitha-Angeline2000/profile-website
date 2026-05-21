@@ -2,39 +2,19 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>
-    Academics | Smitha Angeline Solomon
-  </title>
-
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
-
+  <title>Academics | Smitha Angeline Solomon</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
   <!-- NAVBAR -->
-
   <nav>
-
-    <div class="logo">
-      Smitha
-    </div>
-    <div class="menu-toggle">
-
-  ☰
-
-</div>
-
+    <div class="logo">Smitha</div>
+    <div class="menu-toggle">☰</div>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -45,168 +25,46 @@
       <li><a href="extracurriculars.html">Extracurriculars</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-
   </nav>
 
   <!-- ACADEMICS SECTION -->
-
-  <section>
-
-    <h1 class="section-title">
-      Academics
-    </h1>
-
-    <section id="academics">
-
-  
-
-  <div class="card-container">
-
-    <!-- COLLEGE -->
-
-    <div class="academic-card">
-
-      <div class="academic-top">
-        COLLEGE
+  <section class="reveal">
+    <h1 class="section-title">Academics</h1>
+    
+    <div id="academics">
+      <div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <!-- Dynamically loaded academic radial gauges (e.g. CGPA, Class 12, Class 10) -->
       </div>
-
-      <h3>
-        Current CGPA
-      </h3>
-
-      <p>
-        Pursuing B.Tech in Electronics and Communication Engineering with specialization in Biomedical Engineering at VIT. Building strong foundations in embedded systems, biomedical instrumentation, biosignal processing, and intelligent healthcare systems.
-      </p>
-
-      <div class="glow-score">
-        8.30
-      </div>
-
-      <div class="score-subtext">
-        / 10.0 CGPA
-      </div>
-
     </div>
-
-    <!-- CLASS 12 -->
-
-    <div class="academic-card">
-
-      <div class="academic-top">
-        HIGHER SECONDARY
-      </div>
-
-      <h3>
-        Class 12th
-      </h3>
-
-      <p>
-        Completed higher secondary education with strong focus in Physics, Chemistry, Mathematics, and Biology. Developed analytical thinking, discipline, and scientific problem-solving skills.
-      </p>
-
-      <div class="glow-score">
-        80.2%
-      </div>
-
-      <div class="score-subtext">
-        Overall Percentage
-      </div>
-
-    </div>
-
-    <!-- CLASS 10 -->
-
-    <div class="academic-card">
-
-      <div class="academic-top">
-        SECONDARY
-      </div>
-
-      <h3>
-        Class 10th
-      </h3>
-
-      <p>
-        Built a strong academic foundation through consistency, curiosity, and disciplined learning across science, mathematics, and computer-based subjects.
-      </p>
-      <div class="glow-score">
-        90.6%
-      </div>
-
-      <div class="score-subtext">
-        Overall Percentage
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
   </section>
 
-  <!-- RESEARCH INTERESTS -->
-
-  <section>
-
-    <h2 class="section-title">
-      Research Interests
-    </h2>
-
-    <div class="card-container">
-
-      <div class="card">
-
-        <h3>
-          Biomedical Devices
-        </h3>
-
-        <p>
-          Interest in wearable health monitoring systems, sensing technologies, and intelligent medical devices.
-        </p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Embedded Healthcare Systems
-        </h3>
-
-        <p>
-          Exploring low-cost embedded systems for healthcare monitoring, diagnostics, and patient support systems.
-        </p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Biosignal Systems
-        </h3>
-
-        <p>
-          Interested in ECG, PPG, Pulse Transit Time systems, and biomedical signal acquisition techniques.
-        </p>
-
-      </div>
-
+  <!-- RESEARCH & RESEARCH INTERNSHIP SHOWCASE -->
+  <section class="reveal-left">
+    <h2 class="section-title">Research Focus & Technical Exploration</h2>
+    <div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+      <!-- Dynamically loaded research areas -->
     </div>
+    
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="assets/resume.pdf" download class="btn">
+        <i class="fa-solid fa-file-arrow-down"></i> Download Detailed Academic CV / Resume
+      </a>
+    </div>
+  </section>
 
+  <!-- COURSEWORK SNAPSHOT SECTION -->
+  <section class="coursework-section reveal-scale" style="margin-top: 60px;">
+    <h2 class="section-title">Core VIT Coursework Highlights</h2>
+    <div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+      <!-- Dynamically loaded coursework blocks -->
+    </div>
   </section>
 
   <!-- FOOTER -->
-
   <footer>
-
-    <p>
-      © 2026 Smitha Angeline Solomon
-    </p>
-
+    <p>© 2026 Smitha Angeline Solomon</p>
   </footer>
 
   <script src="script.js"></script>
-
 </body>
-
 </html>

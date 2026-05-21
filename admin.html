@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Smitha Solomon</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* STANDALONE ADMIN STYLES */
+    .admin-body {
+      background: #030611;
+      color: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px;
+    }
+    
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      width: 100%;
+      flex: 1;
+    }
+    
+    /* LOGIN PANEL */
+    .login-wrapper {
+      max-width: 450px;
+      margin: 80px auto;
+      padding: 40px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 30, 0.95));
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      backdrop-filter: blur(15px);
+    }
+    
+    .login-wrapper i {
+      font-size: 50px;
+      color: #22d3ee;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.4));
+    }
+    
+    .login-wrapper h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    
+    .login-wrapper p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+    }
+    
+    .error-msg {
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 15px;
+      min-height: 20px;
+    }
+    
+    /* DASHBOARD LAYOUT */
+    .dashboard-panel {
+      display: none;
+    }
+    
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .admin-header h1 {
+      font-size: 32px;
+      background: linear-gradient(135deg, #60a5fa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logout-btn {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .logout-btn:hover {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 30px;
+    }
+    
+    @media (max-width: 900px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* PANEL CARDS */
+    .admin-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(96, 165, 250, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .admin-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    /* FORMS */
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 13.5px;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    
+    .admin-input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(30, 41, 59, 0.5);
+      color: white;
+      font-size: 14.5px;
+      outline: none;
+      transition: 0.3s;
+    }
+    
+    .admin-input:focus {
+      border-color: #22d3ee;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.15);
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* ITEMS LIST */
+    .items-list {
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+    
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .item-info h4 {
+      margin: 0;
+      color: white;
+      font-size: 15px;
+    }
+    
+    .item-info p {
+      margin: 4px 0 0 0;
+      color: #94a3b8;
+      font-size: 12.5px;
+    }
+    
+    .del-btn {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      font-size: 13px;
+    }
+    
+    .del-btn:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    .edit-btn {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #60a5fa;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      font-size: 13px;
+    }
+    
+    .edit-btn:hover {
+      background: #3b82f6;
+      color: white;
+    }
+    
+    /* SYSTEM CONTROLS */
+    .system-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    
+    .sys-btn {
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(30, 41, 59, 0.3);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+      font-size: 13.5px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .sys-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .sys-btn.btn-reset {
+      grid-column: span 2;
+      border-color: rgba(217, 119, 6, 0.4);
+      color: #fbbf24;
+      background: rgba(217, 119, 6, 0.05);
+    }
+    
+    .sys-btn.btn-reset:hover {
+      background: #fbbf24;
+      color: black;
+    }
+    
+    /* TABS */
+    .admin-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+    
+    .tab-btn.active {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Smitha</div>
+    <div class="menu-toggle" id="admin-nav-toggle">☰</div>
+    <ul id="admin-nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="academics.html">Academics</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="competitions.html">Competitions</a></li>
+      <li><a href="extracurriculars.html">Extracurriculars</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="admin-container">
+    
+    <!-- LOGIN SCREEN -->
+    <div id="login-panel" class="login-wrapper">
+      <i class="fa-solid fa-user-shield"></i>
+      <h2>Admin Control Center</h2>
+      <p>Enter gateway credentials to modify the site content</p>
+      <div class="form-group">
+        <input type="password" id="admin-password" class="admin-input" placeholder="Enter Admin Password" required />
+      </div>
+      <button onclick="attemptLogin()" class="login-btn">Secure Entry</button>
+      <div id="login-error" class="error-msg"></div>
+    </div>
+    
+    <!-- DASHBOARD PANEL -->
+    <div id="dashboard-panel" class="dashboard-panel">
+      
+      <div class="admin-header">
+        <div>
+          <h1>Universal CMS Control Panel</h1>
+          <p style="color: #94a3b8; margin: 5px 0 0 0;">Manage your bio texts, visual radial progress indicators, tag bubbles, projects, and achievements dynamically</p>
+        </div>
+        <button onclick="logout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Exit Panel</button>
+      </div>
+      
+      <!-- SUB-NAVIGATION BAR -->
+      <div class="admin-tabs">
+        <button onclick="switchTab('profile-editor')" id="tab-profile-editor" class="tab-btn active"><i class="fa-solid fa-id-card"></i> Profile & Summary</button>
+        <button onclick="switchTab('skills-editor')" id="tab-skills-editor" class="tab-btn"><i class="fa-solid fa-gears"></i> Skills tag bubbles</button>
+        <button onclick="switchTab('extracurriculars-editor')" id="tab-extracurriculars-editor" class="tab-btn"><i class="fa-solid fa-people-group"></i> Extracurriculars</button>
+        <button onclick="switchTab('experience-editor')" id="tab-experience-editor" class="tab-btn"><i class="fa-solid fa-business-time"></i> Experiences</button>
+        <button onclick="switchTab('academics-editor')" id="tab-academics-editor" class="tab-btn"><i class="fa-solid fa-user-graduate"></i> Academics & Focus</button>
+        <button onclick="switchTab('project-editor')" id="tab-project-editor" class="tab-btn"><i class="fa-solid fa-diagram-project"></i> Projects</button>
+        <button onclick="switchTab('competition-editor')" id="tab-competition-editor" class="tab-btn"><i class="fa-solid fa-trophy"></i> Competitions</button>
+      </div>
+
+      <div class="admin-grid">
+        
+        <!-- LEFT: ACTIVE EDITOR -->
+        <div>
+          
+          <!-- 1. PROFILE & BIO EDITOR -->
+          <div id="profile-editor" class="admin-card tab-content">
+            <h2><i class="fa-solid fa-user-pen"></i> Edit Profile Metadata</h2>
+            <form id="profile-form" onsubmit="saveProfile(event)">
+              <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                  <label>Full Display Name</label>
+                  <input type="text" id="prof-name" class="admin-input" required />
+                </div>
+                <div>
+                  <label>Professional Sub-Role</label>
+                  <input type="text" id="prof-role" class="admin-input" required />
+                </div>
+              </div>
+              <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                  <label>Profile Image Source Path</label>
+                  <input type="text" id="prof-image" class="admin-input" required />
+                </div>
+                <div>
+                  <label>Resume PDF Download Link</label>
+                  <input type="text" id="prof-resume" class="admin-input" required />
+                </div>
+              </div>
+              <div class="form-group" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div>
+                  <label>College CGPA Metric</label>
+                  <input type="text" id="prof-cgpa" class="admin-input" required />
+                </div>
+                <div>
+                  <label>Class 12th Percentage</label>
+                  <input type="text" id="prof-class12" class="admin-input" required />
+                </div>
+                <div>
+                  <label>Class 10th Percentage</label>
+                  <input type="text" id="prof-class10" class="admin-input" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Core ECE Competencies (Comma separated list)</label>
+                <input type="text" id="prof-competencies" class="admin-input" required />
+              </div>
+              <div class="form-group">
+                <label>Hero Page Pitch (Biographical summary short)</label>
+                <textarea id="prof-hero-bio" class="admin-input" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Homepage Summary Header Title</label>
+                <input type="text" id="prof-summary-title" class="admin-input" required />
+              </div>
+              <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                  <label>Homepage Bio Block 1</label>
+                  <textarea id="prof-summary-1" class="admin-input" rows="4" required></textarea>
+                </div>
+                <div>
+                  <label>Homepage Bio Block 2</label>
+                  <textarea id="prof-summary-2" class="admin-input" rows="4" required></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Detailed About Me Biography - Paragraph 1</label>
+                <textarea id="prof-about-1" class="admin-input" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Detailed About Me Biography - Paragraph 2</label>
+                <textarea id="prof-about-2" class="admin-input" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Detailed About Me Biography - Paragraph 3</label>
+                <textarea id="prof-about-3" class="admin-input" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="submit-btn"><i class="fa-solid fa-save"></i> Save Profile Settings</button>
+            </form>
+          </div>
+          
+          <!-- 2. SKILLS EDITOR -->
+          <div id="skills-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-tags"></i> Add Custom Skill category / tag bubbles</h2>
+            <form id="skill-form" onsubmit="addSkill(event)">
+              <div class="form-group">
+                <label>Form / Content Type</label>
+                <select id="skill-type" class="admin-input" onchange="toggleSkillInputs()">
+                  <option value="list">Tag Bubble category (e.g. Programming, Sensors)</option>
+                  <option value="text">Learning Approach Card (Title + Description block)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Category / Card Title</label>
+                <input type="text" id="skill-category" class="admin-input" placeholder="e.g. Embedded Programming" required />
+              </div>
+              <div id="skill-tags-group" class="form-group">
+                <label>Tag Bubbles list (Separated by commas)</label>
+                <input type="text" id="skill-items" class="admin-input" placeholder="e.g. Python, C++, Verilog, Arduino" />
+              </div>
+              <div id="skill-desc-group" class="form-group" style="display: none;">
+                <label>Card Narrative Paragraph Description</label>
+                <textarea id="skill-desc" class="admin-input" rows="3" placeholder="Explain the practical approaches..."></textarea>
+              </div>
+              <button type="submit" id="skill-submit-btn" class="submit-btn">Publish Skill Component</button>
+            </form>
+          </div>
+          
+          <!-- 3. EXTRACURRICULARS EDITOR -->
+          <div id="extracurriculars-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-heart-circle-plus"></i> Add New Extracurricular Card</h2>
+            <form id="ec-form" onsubmit="addExtracurricular(event)">
+              <div class="form-group">
+                <label>Section Placement</label>
+                <select id="ec-section" class="admin-input">
+                  <option value="leadership">Extracurriculars & Leadership</option>
+                  <option value="communication">Communication & Personal Development</option>
+                  <option value="interests">Interests Beyond Academics</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Card Title / Role Name</label>
+                <input type="text" id="ec-title" class="admin-input" placeholder="e.g. Biomedical Innovation Sub-Lead" required />
+              </div>
+              <div class="form-group">
+                <label>Content Description</label>
+                <textarea id="ec-desc" class="admin-input" rows="4" placeholder="Detail the duties, achievements, or concepts learned..." required></textarea>
+              </div>
+              <button type="submit" id="ec-submit-btn" class="submit-btn">Publish Card</button>
+            </form>
+          </div>
+          
+          <!-- 4. EXPERIENCE EDITOR -->
+          <div id="experience-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-business-time"></i> Add Engineering Experience Card</h2>
+            <form id="exp-form" onsubmit="addExperience(event)">
+              <div class="form-group">
+                <label>Job Title / Role</label>
+                <input type="text" id="exp-title" class="admin-input" placeholder="e.g. Biomedical Hardware Developer" required />
+              </div>
+              <div class="form-group">
+                <label>Subtitle / Institution</label>
+                <input type="text" id="exp-subtitle" class="admin-input" placeholder="e.g. VIT Research Project" required />
+              </div>
+              <div class="form-group">
+                <label>Duration Timeframe</label>
+                <input type="text" id="exp-duration" class="admin-input" placeholder="e.g. 2025 - Present" required />
+              </div>
+              <div class="form-group">
+                <label>General Summary Paragraph</label>
+                <textarea id="exp-desc" class="admin-input" rows="3" placeholder="Describe the overall scope..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Bullet Points accomplishments (Separated by | pipes)</label>
+                <textarea id="exp-points" class="admin-input" rows="3" placeholder="Point A | Point B | Point C" required></textarea>
+              </div>
+              <button type="submit" id="exp-submit-btn" class="submit-btn">Publish Experience</button>
+            </form>
+          </div>
+
+          <!-- 5. ACADEMICS & FOCUS EDITOR -->
+          <div id="academics-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-graduation-cap"></i> Customize Academics & Research</h2>
+            <form id="acad-form" onsubmit="saveAcademicsSettings(event)">
+              <p style="color: #fbbf24; font-size: 13px; margin-bottom: 20px;"><i class="fa-solid fa-circle-exclamation"></i> Toggle items in the right-side list to delete or add specific Coursework / Research Focus blocks.</p>
+              
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; margin-top: 15px;">
+                <h3 style="font-size: 16px; color: #22d3ee; margin-bottom: 12px;">Add Academic Score Card (Radial Gauge)</h3>
+                <div class="form-group">
+                  <label>Academic Level Grouping</label>
+                  <input type="text" id="acad-cat" class="admin-input" placeholder="e.g. COLLEGE (VIT)" />
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <label>Degree Title</label>
+                    <input type="text" id="acad-title" class="admin-input" placeholder="e.g. B.Tech in ECE" />
+                  </div>
+                  <div>
+                    <label>Hex Color Theme</label>
+                    <input type="text" id="acad-color" class="admin-input" placeholder="e.g. #22d3ee" value="#22d3ee" />
+                  </div>
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                  <div>
+                    <label>Grade Score</label>
+                    <input type="text" id="acad-score" class="admin-input" placeholder="e.g. 8.30" />
+                  </div>
+                  <div>
+                    <label>Max Scale</label>
+                    <input type="text" id="acad-max" class="admin-input" placeholder="e.g. 10" />
+                  </div>
+                  <div>
+                    <label>Visual Tag Label</label>
+                    <input type="text" id="acad-label" class="admin-input" placeholder="e.g. / 10 CGPA" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Card Description Summary</label>
+                  <textarea id="acad-desc" class="admin-input" rows="3" placeholder="Acquired ECE knowledge..."></textarea>
+                </div>
+                <button type="button" id="acad-gauge-submit-btn" onclick="addAcademicCard()" class="submit-btn" style="background: linear-gradient(135deg, #2563eb, #3b82f6);"><i class="fa-solid fa-plus"></i> Add Grade Level Gauge</button>
+              </div>
+
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 20px;">
+                <h3 style="font-size: 16px; color: #a78bfa; margin-bottom: 12px;">Add Research Focus / Coursework highlight</h3>
+                <div class="form-group">
+                  <label>Placement category</label>
+                  <select id="acad-focus-type" class="admin-input">
+                    <option value="research">Research Focus (about.html / academics.html)</option>
+                    <option value="course">VIT Coursework Highlight</option>
+                  </select>
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <label>Highlight Title</label>
+                    <input type="text" id="acad-focus-title" class="admin-input" placeholder="e.g. Biosignal Processing" />
+                  </div>
+                  <div>
+                    <label>FontAwesome Icon code</label>
+                    <input type="text" id="acad-focus-icon" class="admin-input" placeholder="e.g. fa-solid fa-wave-square" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Short explanation</label>
+                  <textarea id="acad-focus-desc" class="admin-input" rows="3" placeholder="Elaborate study details..."></textarea>
+                </div>
+                <button type="button" id="acad-highlight-submit-btn" onclick="addAcademicFocusItem()" class="submit-btn" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);"><i class="fa-solid fa-plus"></i> Add Highlight Block</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- 6. PROJECT EDITOR -->
+          <div id="project-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-diagram-project"></i> Add New Project</h2>
+            <form id="project-form" onsubmit="addProject(event)">
+              <div class="form-group">
+                <label>Project Title</label>
+                <input type="text" id="proj-title" class="admin-input" placeholder="e.g. Smart Cuffless Blood Pressure Estimator" required />
+              </div>
+              <div class="form-group">
+                <label>Tech Stack</label>
+                <input type="text" id="proj-tech" class="admin-input" placeholder="e.g. Arduino, AD8232, MAX30102, C++" required />
+              </div>
+              <div class="form-group">
+                <label>GitHub Repository URL</label>
+                <input type="url" id="proj-github" class="admin-input" placeholder="e.g. https://github.com/Smitha-Angeline2000/ECG-Monitor" required />
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="proj-cat" class="admin-input" placeholder="e.g. Biomedical" required />
+              </div>
+              <div class="form-group">
+                <label>Year</label>
+                <input type="text" id="proj-year" class="admin-input" placeholder="e.g. 2025" required />
+              </div>
+              <div class="form-group">
+                <label>Image Source Path</label>
+                <input type="text" id="proj-img" class="admin-input" placeholder="e.g. images/project1.jpeg" value="images/project1.jpeg" required />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="proj-desc" class="admin-input" rows="4" placeholder="Describe the technical details, hardware interfaces, algorithms, and impact..." required></textarea>
+              </div>
+              <button type="submit" id="proj-submit-btn" class="submit-btn">Publish Project</button>
+            </form>
+          </div>
+          
+          <!-- 7. COMPETITION EDITOR -->
+          <div id="competition-editor" class="admin-card tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-trophy"></i> Add New Competition</h2>
+            <form id="competition-form" onsubmit="addCompetition(event)">
+              <div class="form-group">
+                <label>Competition Name</label>
+                <input type="text" id="comp-title" class="admin-input" placeholder="e.g. IAC Hackathon" required />
+              </div>
+              <div class="form-group">
+                <label>Achievement / Standing</label>
+                <input type="text" id="comp-achieve" class="admin-input" placeholder="e.g. Won 2nd / Represented VIT" required />
+              </div>
+              <div class="form-group">
+                <label>Year</label>
+                <input type="text" id="comp-year" class="admin-input" placeholder="e.g. 2025" required />
+              </div>
+              <div class="form-group">
+                <label>Month</label>
+                <input type="text" id="comp-month" class="admin-input" placeholder="e.g. September" required />
+              </div>
+              <div class="form-group">
+                <label>Image Source Path</label>
+                <input type="text" id="comp-img" class="admin-input" placeholder="e.g. images/competition.jpg" value="images/competition.jpg" required />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="comp-desc" class="admin-input" rows="4" placeholder="Description placeholder for competitions..." required>Description placeholder. Edit this details in the admin portal.</textarea>
+              </div>
+              <button type="submit" id="comp-submit-btn" class="submit-btn">Publish Competition</button>
+            </form>
+          </div>
+          
+        </div>
+        
+        <!-- RIGHT: MANAGEMENT & BACKUP -->
+        <div>
+          
+          <!-- PORTABILITY -->
+          <div class="admin-card">
+            <h2><i class="fa-solid fa-database"></i> Unified Dynamic Database</h2>
+            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 20px; line-height: 1.5;">
+              Since this site runs entirely client-side, your changes are stored inside your browser's local storage. Backup your database below to copy it or deploy it online.
+            </p>
+            <div class="system-controls">
+              <button onclick="exportDatabase()" class="sys-btn"><i class="fa-solid fa-file-export"></i> Export JSON</button>
+              
+              <label for="import-file" class="sys-btn" style="margin: 0; cursor: pointer;">
+                <i class="fa-solid fa-file-import"></i> Import JSON
+              </label>
+              <input type="file" id="import-file" style="display:none;" onchange="importDatabase(event)" accept=".json" />
+              
+              <button onclick="resetDatabase()" class="sys-btn btn-reset"><i class="fa-solid fa-rotate-left"></i> Reset Defaults</button>
+            </div>
+            <div id="db-status" style="margin-top: 15px; font-size: 13px; font-weight: 500; min-height: 18px; text-align: center;"></div>
+          </div>
+          
+          <!-- CURRENT ENTRIES -->
+          <div class="admin-card">
+            <h2 id="published-list-heading"><i class="fa-solid fa-list-check"></i> Published Entries</h2>
+            
+            <div id="entries-list-container" class="items-list">
+              <!-- Rendered via JS -->
+            </div>
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+
+  <footer style="margin-top: 60px;">
+    <p>© 2026 Smitha Angeline Solomon | Secure Console</p>
+  </footer>
+
+  <!-- DYNAMIC LOCALSTORAGE ADMIN PANEL SCRIPT -->
+  <script>
+    const HASHED_PASS = "smitha123!";
+    let activeTabId = 'profile-editor';
+    let editingIndex = null;
+    let editingType = null; // 'project', 'competition', 'skill', 'extracurricular', 'experience', 'acad-gauge', 'acad-research', 'acad-course'
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      // Setup nav hamburger specifically for admin
+      const toggle = document.getElementById("admin-nav-toggle");
+      const menu = document.getElementById("admin-nav-menu");
+      if (toggle && menu) {
+        toggle.addEventListener("click", () => {
+          menu.classList.toggle("active");
+          toggle.classList.toggle("open");
+        });
+      }
+      
+      // Check session auth
+      if (sessionStorage.getItem('admin_authenticated') === 'true') {
+        showDashboard();
+      }
+      
+      // Make sure database is initialized (will check script.js getters)
+      if (typeof initDBDefaults !== 'function') {
+        console.log("System initialized via core JS");
+      }
+      
+      // Fill forms with profile data
+      loadProfileDataIntoForm();
+      renderDashboardList();
+    });
+    
+    function attemptLogin() {
+      const input = document.getElementById("admin-password").value;
+      const errorDiv = document.getElementById("login-error");
+      
+      if (input === HASHED_PASS) {
+        sessionStorage.setItem('admin_authenticated', 'true');
+        showDashboard();
+        errorDiv.textContent = "";
+      } else {
+        errorDiv.textContent = "Access Denied. Cryptographic key mismatch.";
+      }
+    }
+    
+    // Listen for enter key in login
+    document.getElementById("admin-password").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        attemptLogin();
+      }
+    });
+    
+    function showDashboard() {
+      document.getElementById("login-panel").style.display = "none";
+      document.getElementById("dashboard-panel").style.display = "block";
+    }
+    
+    function logout() {
+      sessionStorage.removeItem('admin_authenticated');
+      window.location.reload();
+    }
+    
+    // TAB NAVIGATION & FILTERING
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      
+      // Update tab styles
+      document.querySelectorAll('.admin-tabs button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById('tab-' + tabId).classList.add('active');
+      
+      activeTabId = tabId;
+      resetEditingState(); // Reset edit state when switching tabs!
+      renderDashboardList();
+    }
+    
+    // PROFILE MANAGEMENT
+    function loadProfileDataIntoForm() {
+      const p = JSON.parse(localStorage.getItem('portfolio_profile') || "{}");
+      if (Object.keys(p).length === 0) return;
+      
+      document.getElementById('prof-name').value = p.name || "";
+      document.getElementById('prof-role').value = p.role || "";
+      document.getElementById('prof-image').value = p.profile_image || "";
+      document.getElementById('prof-resume').value = p.resume_pdf || "";
+      document.getElementById('prof-cgpa').value = p.stats_cgpa || "";
+      document.getElementById('prof-class12').value = p.stats_class_12 || "";
+      document.getElementById('prof-class10').value = p.stats_class_10 || "";
+      document.getElementById('prof-competencies').value = p.competencies || "";
+      document.getElementById('prof-hero-bio').value = p.bio_hero || "";
+      document.getElementById('prof-summary-title').value = p.bio_summary_title || "";
+      document.getElementById('prof-summary-1').value = p.bio_summary_1 || "";
+      document.getElementById('prof-summary-2').value = p.bio_summary_2 || "";
+      document.getElementById('prof-about-1').value = p.bio_about_1 || "";
+      document.getElementById('prof-about-2').value = p.bio_about_2 || "";
+      document.getElementById('prof-about-3').value = p.bio_about_3 || "";
+    }
+    
+    function saveProfile(e) {
+      e.preventDefault();
+      const updated = {
+        name: document.getElementById('prof-name').value,
+        role: document.getElementById('prof-role').value,
+        profile_image: document.getElementById('prof-image').value,
+        resume_pdf: document.getElementById('prof-resume').value,
+        stats_cgpa: document.getElementById('prof-cgpa').value,
+        stats_class_12: document.getElementById('prof-class12').value,
+        stats_class_10: document.getElementById('prof-class10').value,
+        competencies: document.getElementById('prof-competencies').value,
+        bio_hero: document.getElementById('prof-hero-bio').value,
+        bio_summary_title: document.getElementById('prof-summary-title').value,
+        bio_summary_1: document.getElementById('prof-summary-1').value,
+        bio_summary_2: document.getElementById('prof-summary-2').value,
+        bio_about_1: document.getElementById('prof-about-1').value,
+        bio_about_2: document.getElementById('prof-about-2').value,
+        bio_about_3: document.getElementById('prof-about-3').value
+      };
+      
+      localStorage.setItem('portfolio_profile', JSON.stringify(updated));
+      showStatus("General profile configurations saved successfully!", "#10b981");
+    }
+    
+    // SKILLS INPUTS TOGGLER
+    function toggleSkillInputs() {
+      const type = document.getElementById('skill-type').value;
+      if (type === 'list') {
+        document.getElementById('skill-tags-group').style.display = 'block';
+        document.getElementById('skill-desc-group').style.display = 'none';
+        document.getElementById('skill-items').required = true;
+        document.getElementById('skill-desc').required = false;
+      } else {
+        document.getElementById('skill-tags-group').style.display = 'none';
+        document.getElementById('skill-desc-group').style.display = 'block';
+        document.getElementById('skill-items').required = false;
+        document.getElementById('skill-desc').required = true;
+      }
+    }
+    
+    // RESET EDITING STATE
+    function resetEditingState() {
+      editingIndex = null;
+      editingType = null;
+      
+      // Restore all form buttons to original states
+      const projBtn = document.getElementById('proj-submit-btn');
+      if (projBtn) {
+        projBtn.innerHTML = "Publish Project";
+        projBtn.style.background = "";
+      }
+      
+      const compBtn = document.getElementById('comp-submit-btn');
+      if (compBtn) {
+        compBtn.innerHTML = "Publish Competition";
+        compBtn.style.background = "";
+      }
+      
+      const skillBtn = document.getElementById('skill-submit-btn');
+      if (skillBtn) {
+        skillBtn.innerHTML = "Publish Skill Component";
+        skillBtn.style.background = "";
+      }
+      
+      const ecBtn = document.getElementById('ec-submit-btn');
+      if (ecBtn) {
+        ecBtn.innerHTML = "Publish Card";
+        ecBtn.style.background = "";
+      }
+      
+      const expBtn = document.getElementById('exp-submit-btn');
+      if (expBtn) {
+        expBtn.innerHTML = "Publish Experience";
+        expBtn.style.background = "";
+      }
+      
+      const acadGaugeBtn = document.getElementById('acad-gauge-submit-btn');
+      if (acadGaugeBtn) {
+        acadGaugeBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Add Grade Level Gauge`;
+        acadGaugeBtn.style.background = "";
+      }
+      
+      const acadHighlightBtn = document.getElementById('acad-highlight-submit-btn');
+      if (acadHighlightBtn) {
+        acadHighlightBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Add Highlight Block`;
+        acadHighlightBtn.style.background = "";
+      }
+    }
+    
+    // EDIT TRIGGERS
+    function editProject(idx) {
+      const projects = JSON.parse(localStorage.getItem('portfolio_projects') || "[]");
+      const p = projects[idx];
+      if (!p) return;
+      
+      editingIndex = idx;
+      editingType = 'project';
+      
+      document.getElementById('proj-title').value = p.title || "";
+      document.getElementById('proj-tech').value = p.tech || "";
+      document.getElementById('proj-github').value = p.github || "";
+      document.getElementById('proj-cat').value = p.category || "";
+      document.getElementById('proj-year').value = p.year || "";
+      document.getElementById('proj-img').value = p.image || "";
+      document.getElementById('proj-desc').value = p.desc || "";
+      
+      const btn = document.getElementById('proj-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('project-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editCompetition(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_competitions') || "[]");
+      const c = list[idx];
+      if (!c) return;
+      
+      editingIndex = idx;
+      editingType = 'competition';
+      
+      document.getElementById('comp-title').value = c.title || "";
+      document.getElementById('comp-achieve').value = c.achievement || "";
+      document.getElementById('comp-year').value = c.year || "";
+      document.getElementById('comp-month').value = c.month || "";
+      document.getElementById('comp-img').value = c.image || "";
+      document.getElementById('comp-desc').value = c.desc || "";
+      
+      const btn = document.getElementById('comp-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('competition-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editSkill(idx) {
+      const skills = JSON.parse(localStorage.getItem('portfolio_skills') || "[]");
+      const s = skills[idx];
+      if (!s) return;
+      
+      editingIndex = idx;
+      editingType = 'skill';
+      
+      document.getElementById('skill-type').value = s.type;
+      toggleSkillInputs();
+      
+      document.getElementById('skill-category').value = s.category || "";
+      if (s.type === 'list') {
+        document.getElementById('skill-items').value = s.items ? s.items.join(', ') : "";
+      } else {
+        document.getElementById('skill-desc').value = s.desc || "";
+      }
+      
+      const btn = document.getElementById('skill-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('skill-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editExtracurricular(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_extracurriculars') || "[]");
+      const e = list[idx];
+      if (!e) return;
+      
+      editingIndex = idx;
+      editingType = 'extracurricular';
+      
+      document.getElementById('ec-section').value = e.section || "leadership";
+      document.getElementById('ec-title').value = e.title || "";
+      document.getElementById('ec-desc').value = e.desc || "";
+      
+      const btn = document.getElementById('ec-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('ec-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editExperience(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_experiences') || "[]");
+      const exp = list[idx];
+      if (!exp) return;
+      
+      editingIndex = idx;
+      editingType = 'experience';
+      
+      document.getElementById('exp-title').value = exp.title || "";
+      document.getElementById('exp-subtitle').value = exp.subtitle || "";
+      document.getElementById('exp-duration').value = exp.duration || "";
+      document.getElementById('exp-desc').value = exp.desc || "";
+      document.getElementById('exp-points').value = exp.points || "";
+      
+      const btn = document.getElementById('exp-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('exp-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editAcademicCard(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_academics') || "[]");
+      const a = list[idx];
+      if (!a) return;
+      
+      editingIndex = idx;
+      editingType = 'acad-gauge';
+      
+      document.getElementById('acad-cat').value = a.category || "";
+      document.getElementById('acad-title').value = a.title || "";
+      document.getElementById('acad-color').value = a.color || "";
+      document.getElementById('acad-score').value = a.score || "";
+      document.getElementById('acad-max').value = a.max || "";
+      document.getElementById('acad-label').value = a.label || "";
+      document.getElementById('acad-desc').value = a.desc || "";
+      
+      const btn = document.getElementById('acad-gauge-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Gauge Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('acad-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editResearchItem(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+      const r = list[idx];
+      if (!r) return;
+      
+      editingIndex = idx;
+      editingType = 'acad-research';
+      
+      document.getElementById('acad-focus-type').value = 'research';
+      document.getElementById('acad-focus-title').value = r.title || "";
+      document.getElementById('acad-focus-icon').value = r.icon || "";
+      document.getElementById('acad-focus-desc').value = r.desc || "";
+      
+      const btn = document.getElementById('acad-highlight-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Highlight Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('acad-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function editCourseworkItem(idx) {
+      const list = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+      const c = list[idx];
+      if (!c) return;
+      
+      editingIndex = idx;
+      editingType = 'acad-course';
+      
+      document.getElementById('acad-focus-type').value = 'course';
+      document.getElementById('acad-focus-title').value = c.title || "";
+      document.getElementById('acad-focus-icon').value = c.icon || "";
+      document.getElementById('acad-focus-desc').value = c.desc || "";
+      
+      const btn = document.getElementById('acad-highlight-submit-btn');
+      btn.innerHTML = `<i class="fa-solid fa-save"></i> Save Highlight Changes`;
+      btn.style.background = "linear-gradient(135deg, #2563eb, #1d4ed8)";
+      
+      document.getElementById('acad-form').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // RENDER LISTS BASED ON ACTIVE TAB
+    function renderDashboardList() {
+      const container = document.getElementById('entries-list-container');
+      const heading = document.getElementById('published-list-heading');
+      container.innerHTML = "";
+      
+      if (activeTabId === 'profile-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Profile State Overview`;
+        const p = JSON.parse(localStorage.getItem('portfolio_profile') || "{}");
+        container.innerHTML = `
+          <div style="background: rgba(30,41,59,0.3); padding: 15px; border-radius: 12px; font-size: 13.5px; line-height: 1.6;">
+            <p><strong>Name:</strong> ${escapeHTML(p.name)}</p>
+            <p><strong>Role:</strong> ${escapeHTML(p.role)}</p>
+            <p><strong>CGPA:</strong> ${escapeHTML(p.stats_cgpa)}</p>
+            <p><strong>Class 12th:</strong> ${escapeHTML(p.stats_class_12)}</p>
+            <p><strong>Class 10th:</strong> ${escapeHTML(p.stats_class_10)}</p>
+            <br>
+            <p style="color:#60a5fa;"><i class="fa-solid fa-circle-info"></i> Fill the forms on the left and submit to live-save profile stats immediately.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      if (activeTabId === 'project-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Published Projects`;
+        const projects = JSON.parse(localStorage.getItem('portfolio_projects') || "[]");
+        if (projects.length === 0) {
+          container.innerHTML = "<p style='color:#94a3b8; text-align:center;'>No projects added.</p>";
+          return;
+        }
+        projects.forEach((p, idx) => {
+          const div = document.createElement('div');
+          div.className = "item-row";
+          div.innerHTML = `
+            <div class="item-info">
+              <h4>${escapeHTML(p.title)}</h4>
+              <p>${escapeHTML(p.category)} | ${escapeHTML(p.year)}</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="editProject(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteProject(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      
+      if (activeTabId === 'competition-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Published Competitions`;
+        const competitions = JSON.parse(localStorage.getItem('portfolio_competitions') || "[]");
+        if (competitions.length === 0) {
+          container.innerHTML = "<p style='color:#94a3b8; text-align:center;'>No competitions added.</p>";
+          return;
+        }
+        competitions.forEach((c, idx) => {
+          const div = document.createElement('div');
+          div.className = "item-row";
+          div.innerHTML = `
+            <div class="item-info">
+              <h4>${escapeHTML(c.title)}</h4>
+              <p>${escapeHTML(c.achievement)} | ${escapeHTML(c.month)} ${escapeHTML(c.year)}</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="editCompetition(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteCompetition(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      
+      if (activeTabId === 'skills-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Published Skills`;
+        const skills = JSON.parse(localStorage.getItem('portfolio_skills') || "[]");
+        if (skills.length === 0) {
+          container.innerHTML = "<p style='color:#94a3b8; text-align:center;'>No skills categories added.</p>";
+          return;
+        }
+        skills.forEach((s, idx) => {
+          const div = document.createElement('div');
+          div.className = "item-row";
+          const subText = s.type === 'list' ? `${s.items.length} bubbles: ${s.items.slice(0, 3).join(', ')}...` : 'Philosophy Block';
+          div.innerHTML = `
+            <div class="item-info">
+              <h4>${escapeHTML(s.category)}</h4>
+              <p>${escapeHTML(subText)}</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="editSkill(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteSkill(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      
+      if (activeTabId === 'extracurriculars-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Published Extracurriculars`;
+        const ecs = JSON.parse(localStorage.getItem('portfolio_extracurriculars') || "[]");
+        if (ecs.length === 0) {
+          container.innerHTML = "<p style='color:#94a3b8; text-align:center;'>No extracurricular items added.</p>";
+          return;
+        }
+        ecs.forEach((e, idx) => {
+          const div = document.createElement('div');
+          div.className = "item-row";
+          div.innerHTML = `
+            <div class="item-info">
+              <h4>${escapeHTML(e.title)}</h4>
+              <p>${escapeHTML(e.section.toUpperCase())}</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="editExtracurricular(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteExtracurricular(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      
+      if (activeTabId === 'experience-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Timeline Experience Cards`;
+        const exps = JSON.parse(localStorage.getItem('portfolio_experiences') || "[]");
+        if (exps.length === 0) {
+          container.innerHTML = "<p style='color:#94a3b8; text-align:center;'>No experiences added.</p>";
+          return;
+        }
+        exps.forEach((exp, idx) => {
+          const div = document.createElement('div');
+          div.className = "item-row";
+          div.innerHTML = `
+            <div class="item-info">
+              <h4>${escapeHTML(exp.title)}</h4>
+              <p>${escapeHTML(exp.subtitle)} | ${escapeHTML(exp.duration)}</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="editExperience(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="deleteExperience(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      if (activeTabId === 'academics-editor') {
+        heading.innerHTML = `<i class="fa-solid fa-list-check"></i> Academics Components`;
+        const acads = JSON.parse(localStorage.getItem('portfolio_academics') || "[]");
+        const research = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+        const coursework = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+        
+        container.innerHTML = `
+          <div style="font-weight:600; font-size:13px; color:#22d3ee; margin-bottom:8px;">Gauges & Grades:</div>
+        `;
+        
+        if (acads.length === 0) {
+          container.innerHTML += "<p style='color:#cbd5e1; font-size:12px; margin-left:10px;'>No radial gauges.</p>";
+        } else {
+          acads.forEach((a, idx) => {
+            const div = document.createElement('div');
+            div.className = "item-row";
+            div.innerHTML = `
+              <div class="item-info">
+                <h4>${escapeHTML(a.title)}</h4>
+                <p>${escapeHTML(a.category)}: ${escapeHTML(a.score)}${escapeHTML(a.label)}</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button onclick="editAcademicCard(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="deleteAcademicCard(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        }
+        
+        const resDiv = document.createElement('div');
+        resDiv.style.fontWeight = "600";
+        resDiv.style.fontSize = "13px";
+        resDiv.style.color = "#a78bfa";
+        resDiv.style.margin = "15px 0 8px 0";
+        resDiv.textContent = "Research Focus Areas:";
+        container.appendChild(resDiv);
+        
+        if (research.length === 0) {
+          container.innerHTML += "<p style='color:#cbd5e1; font-size:12px; margin-left:10px;'>No research areas.</p>";
+        } else {
+          research.forEach((r, idx) => {
+            const div = document.createElement('div');
+            div.className = "item-row";
+            div.innerHTML = `
+              <div class="item-info">
+                <h4>${escapeHTML(r.title)}</h4>
+                <p>Icon: ${escapeHTML(r.icon)}</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button onclick="editResearchItem(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="deleteResearchItem(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        }
+
+        const courseDiv = document.createElement('div');
+        courseDiv.style.fontWeight = "600";
+        courseDiv.style.fontSize = "13px";
+        courseDiv.style.color = "#60a5fa";
+        courseDiv.style.margin = "15px 0 8px 0";
+        courseDiv.textContent = "VIT Coursework Highlights:";
+        container.appendChild(courseDiv);
+        
+        if (coursework.length === 0) {
+          container.innerHTML += "<p style='color:#cbd5e1; font-size:12px; margin-left:10px;'>No coursework items.</p>";
+        } else {
+          coursework.forEach((c, idx) => {
+            const div = document.createElement('div');
+            div.className = "item-row";
+            div.innerHTML = `
+              <div class="item-info">
+                <h4>${escapeHTML(c.title)}</h4>
+                <p>Icon: ${escapeHTML(c.icon)}</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button onclick="editCourseworkItem(${idx})" class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="deleteCourseworkItem(${idx})" class="del-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        }
+      }
+    }
+    
+    // CRUD OPERATIONS
+    function addProject(e) {
+      e.preventDefault();
+      const title = document.getElementById('proj-title').value;
+      const tech = document.getElementById('proj-tech').value;
+      const github = document.getElementById('proj-github').value;
+      const category = document.getElementById('proj-cat').value;
+      const year = document.getElementById('proj-year').value;
+      const image = document.getElementById('proj-img').value;
+      const desc = document.getElementById('proj-desc').value;
+      
+      const list = JSON.parse(localStorage.getItem('portfolio_projects') || "[]");
+      
+      if (editingIndex !== null && editingType === 'project') {
+        list[editingIndex] = { title, tech, github, category, year, image, desc };
+        localStorage.setItem('portfolio_projects', JSON.stringify(list));
+        showStatus("Project updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        list.push({ title, tech, github, category, year, image, desc });
+        localStorage.setItem('portfolio_projects', JSON.stringify(list));
+        showStatus("Project published successfully!", "#10b981");
+      }
+      
+      document.getElementById('project-form').reset();
+      document.getElementById('proj-img').value = "images/project1.jpeg";
+      
+      renderDashboardList();
+    }
+    
+    function addCompetition(e) {
+      e.preventDefault();
+      const title = document.getElementById('comp-title').value;
+      const achievement = document.getElementById('comp-achieve').value;
+      const year = document.getElementById('comp-year').value;
+      const month = document.getElementById('comp-month').value;
+      const image = document.getElementById('comp-img').value;
+      const desc = document.getElementById('comp-desc').value;
+      
+      const list = JSON.parse(localStorage.getItem('portfolio_competitions') || "[]");
+      
+      if (editingIndex !== null && editingType === 'competition') {
+        list[editingIndex] = { title, achievement, year, month, image, desc };
+        localStorage.setItem('portfolio_competitions', JSON.stringify(list));
+        showStatus("Competition updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        list.push({ title, achievement, year, month, image, desc });
+        localStorage.setItem('portfolio_competitions', JSON.stringify(list));
+        showStatus("Competition published successfully!", "#10b981");
+      }
+      
+      document.getElementById('competition-form').reset();
+      document.getElementById('comp-img').value = "images/competition.jpg";
+      document.getElementById('comp-desc').value = "Description placeholder. Edit this details in the admin portal.";
+      
+      renderDashboardList();
+    }
+    
+    function addSkill(e) {
+      e.preventDefault();
+      const type = document.getElementById('skill-type').value;
+      const category = document.getElementById('skill-category').value;
+      const itemsVal = document.getElementById('skill-items').value;
+      const desc = document.getElementById('skill-desc').value;
+      
+      const skills = JSON.parse(localStorage.getItem('portfolio_skills') || "[]");
+      
+      let updatedSkill = {};
+      if (type === 'list') {
+        const items = itemsVal.split(',').map(s => s.trim()).filter(s => s);
+        updatedSkill = { category, type, items };
+      } else {
+        updatedSkill = { category, type, desc };
+      }
+      
+      if (editingIndex !== null && editingType === 'skill') {
+        skills[editingIndex] = updatedSkill;
+        localStorage.setItem('portfolio_skills', JSON.stringify(skills));
+        showStatus("Skill component updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        skills.push(updatedSkill);
+        localStorage.setItem('portfolio_skills', JSON.stringify(skills));
+        showStatus("Skill component added successfully!", "#10b981");
+      }
+      
+      document.getElementById('skill-form').reset();
+      toggleSkillInputs();
+      
+      renderDashboardList();
+    }
+    
+    function addExtracurricular(e) {
+      e.preventDefault();
+      const section = document.getElementById('ec-section').value;
+      const title = document.getElementById('ec-title').value;
+      const desc = document.getElementById('ec-desc').value;
+      
+      const list = JSON.parse(localStorage.getItem('portfolio_extracurriculars') || "[]");
+      
+      if (editingIndex !== null && editingType === 'extracurricular') {
+        list[editingIndex] = { section, title, desc };
+        localStorage.setItem('portfolio_extracurriculars', JSON.stringify(list));
+        showStatus("Extracurricular card updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        list.push({ section, title, desc });
+        localStorage.setItem('portfolio_extracurriculars', JSON.stringify(list));
+        showStatus("Extracurricular card published successfully!", "#10b981");
+      }
+      
+      document.getElementById('ec-form').reset();
+      
+      renderDashboardList();
+    }
+    
+    function addExperience(e) {
+      e.preventDefault();
+      const title = document.getElementById('exp-title').value;
+      const subtitle = document.getElementById('exp-subtitle').value;
+      const duration = document.getElementById('exp-duration').value;
+      const desc = document.getElementById('exp-desc').value;
+      const points = document.getElementById('exp-points').value;
+      
+      const list = JSON.parse(localStorage.getItem('portfolio_experiences') || "[]");
+      
+      if (editingIndex !== null && editingType === 'experience') {
+        list[editingIndex] = { title, subtitle, duration, desc, points };
+        localStorage.setItem('portfolio_experiences', JSON.stringify(list));
+        showStatus("Timeline experience updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        list.push({ title, subtitle, duration, desc, points });
+        localStorage.setItem('portfolio_experiences', JSON.stringify(list));
+        showStatus("Timeline experience card added successfully!", "#10b981");
+      }
+      
+      document.getElementById('exp-form').reset();
+      
+      renderDashboardList();
+    }
+
+    function addAcademicCard() {
+      const category = document.getElementById('acad-cat').value;
+      const title = document.getElementById('acad-title').value;
+      const color = document.getElementById('acad-color').value;
+      const score = document.getElementById('acad-score').value;
+      const max = document.getElementById('acad-max').value;
+      const label = document.getElementById('acad-label').value;
+      const desc = document.getElementById('acad-desc').value;
+      
+      if (!category || !title || !score || !max) {
+        alert("Please complete the required score inputs.");
+        return;
+      }
+      
+      const list = JSON.parse(localStorage.getItem('portfolio_academics') || "[]");
+      
+      if (editingIndex !== null && editingType === 'acad-gauge') {
+        list[editingIndex] = { category, title, color, score, max, label, desc };
+        localStorage.setItem('portfolio_academics', JSON.stringify(list));
+        showStatus("Academic gauge card updated!", "#10b981");
+        resetEditingState();
+      } else {
+        list.push({ category, title, color, score, max, label, desc });
+        localStorage.setItem('portfolio_academics', JSON.stringify(list));
+        showStatus("Academic gauge card created!", "#10b981");
+      }
+      
+      document.getElementById('acad-cat').value = "";
+      document.getElementById('acad-title').value = "";
+      document.getElementById('acad-score').value = "";
+      document.getElementById('acad-max').value = "";
+      document.getElementById('acad-label').value = "";
+      document.getElementById('acad-desc').value = "";
+      
+      renderDashboardList();
+    }
+
+    function addAcademicFocusItem() {
+      const type = document.getElementById('acad-focus-type').value;
+      const title = document.getElementById('acad-focus-title').value;
+      const icon = document.getElementById('acad-focus-icon').value;
+      const desc = document.getElementById('acad-focus-desc').value;
+      
+      if (!title || !desc) {
+        alert("Title and description are required.");
+        return;
+      }
+      
+      if (editingIndex !== null && (editingType === 'acad-research' || editingType === 'acad-course')) {
+        const research = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+        const coursework = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+        
+        if (editingType === 'acad-research') {
+          research.splice(editingIndex, 1);
+        } else {
+          coursework.splice(editingIndex, 1);
+        }
+        
+        localStorage.setItem('portfolio_research_focus', JSON.stringify(research));
+        localStorage.setItem('portfolio_coursework', JSON.stringify(coursework));
+        
+        if (type === 'research') {
+          const list = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+          list.push({ title, icon, desc });
+          localStorage.setItem('portfolio_research_focus', JSON.stringify(list));
+        } else {
+          const list = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+          list.push({ title, icon, desc });
+          localStorage.setItem('portfolio_coursework', JSON.stringify(list));
+        }
+        
+        showStatus("Academic highlight updated successfully!", "#10b981");
+        resetEditingState();
+      } else {
+        if (type === 'research') {
+          const list = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+          list.push({ title, icon, desc });
+          localStorage.setItem('portfolio_research_focus', JSON.stringify(list));
+        } else {
+          const list = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+          list.push({ title, icon, desc });
+          localStorage.setItem('portfolio_coursework', JSON.stringify(list));
+        }
+        showStatus("Academic highlight created!", "#10b981");
+      }
+      
+      document.getElementById('acad-focus-title').value = "";
+      document.getElementById('acad-focus-icon').value = "";
+      document.getElementById('acad-focus-desc').value = "";
+      
+      renderDashboardList();
+    }
+    
+    // DELETE OPERATIONS
+    function deleteProject(idx) {
+      if (confirm("Delete this project?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_projects') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_projects', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Project deleted successfully.", "#ef4444");
+      }
+    }
+    
+    function deleteCompetition(idx) {
+      if (confirm("Delete this competition?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_competitions') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_competitions', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Competition deleted successfully.", "#ef4444");
+      }
+    }
+    
+    function deleteSkill(idx) {
+      if (confirm("Delete this skill component?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_skills') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_skills', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Skill category removed.", "#ef4444");
+      }
+    }
+    
+    function deleteExtracurricular(idx) {
+      if (confirm("Delete this extracurricular card?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_extracurriculars') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_extracurriculars', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Extracurricular item deleted.", "#ef4444");
+      }
+    }
+    
+    function deleteExperience(idx) {
+      if (confirm("Delete this experience card?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_experiences') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_experiences', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Timeline experience removed.", "#ef4444");
+      }
+    }
+
+    function deleteAcademicCard(idx) {
+      if (confirm("Delete this academic grade gauge card?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_academics') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_academics', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Gauge card removed.", "#ef4444");
+      }
+    }
+
+    function deleteResearchItem(idx) {
+      if (confirm("Delete this research focus item?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_research_focus', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Research item removed.", "#ef4444");
+      }
+    }
+
+    function deleteCourseworkItem(idx) {
+      if (confirm("Delete this VIT coursework item?")) {
+        const list = JSON.parse(localStorage.getItem('portfolio_coursework') || "[]");
+        list.splice(idx, 1);
+        localStorage.setItem('portfolio_coursework', JSON.stringify(list));
+        resetEditingState();
+        renderDashboardList();
+        showStatus("Coursework item removed.", "#ef4444");
+      }
+    }
+    
+    // BACKUP AND RESTORE
+    function exportDatabase() {
+      const backup = {
+        projects: JSON.parse(localStorage.getItem('portfolio_projects') || "[]"),
+        competitions: JSON.parse(localStorage.getItem('portfolio_competitions') || "[]"),
+        profile: JSON.parse(localStorage.getItem('portfolio_profile') || "{}"),
+        skills: JSON.parse(localStorage.getItem('portfolio_skills') || "[]"),
+        extracurriculars: JSON.parse(localStorage.getItem('portfolio_extracurriculars') || "[]"),
+        experiences: JSON.parse(localStorage.getItem('portfolio_experiences') || "[]"),
+        research_focus: JSON.parse(localStorage.getItem('portfolio_research_focus') || "[]"),
+        coursework: JSON.parse(localStorage.getItem('portfolio_coursework') || "[]"),
+        academics: JSON.parse(localStorage.getItem('portfolio_academics') || "[]")
+      };
+      
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "smitha_portfolio_backup.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      
+      showStatus("Database exported successfully.", "#60a5fa");
+    }
+    
+    function importDatabase(e) {
+      const fileReader = new FileReader();
+      fileReader.onload = function(event) {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          if (parsed.profile || parsed.projects || parsed.competitions) {
+            if (parsed.projects) localStorage.setItem('portfolio_projects', JSON.stringify(parsed.projects));
+            if (parsed.competitions) localStorage.setItem('portfolio_competitions', JSON.stringify(parsed.competitions));
+            if (parsed.profile) localStorage.setItem('portfolio_profile', JSON.stringify(parsed.profile));
+            if (parsed.skills) localStorage.setItem('portfolio_skills', JSON.stringify(parsed.skills));
+            if (parsed.extracurriculars) localStorage.setItem('portfolio_extracurriculars', JSON.stringify(parsed.extracurriculars));
+            if (parsed.experiences) localStorage.setItem('portfolio_experiences', JSON.stringify(parsed.experiences));
+            if (parsed.research_focus) localStorage.setItem('portfolio_research_focus', JSON.stringify(parsed.research_focus));
+            if (parsed.coursework) localStorage.setItem('portfolio_coursework', JSON.stringify(parsed.coursework));
+            if (parsed.academics) localStorage.setItem('portfolio_academics', JSON.stringify(parsed.academics));
+            
+            loadProfileDataIntoForm();
+            resetEditingState();
+            renderDashboardList();
+            showStatus("Database backup restored successfully!", "#10b981");
+          } else {
+            showStatus("Error: Invalid JSON format.", "#ef4444");
+          }
+        } catch(err) {
+          showStatus("Error reading file.", "#ef4444");
+        }
+      };
+      fileReader.readAsText(e.target.files[0]);
+    }
+    
+    function resetDatabase() {
+      if (confirm("WARNING: This will replace all current entries with default data. Continue?")) {
+        localStorage.removeItem('portfolio_projects');
+        localStorage.removeItem('portfolio_competitions');
+        localStorage.removeItem('portfolio_profile');
+        localStorage.removeItem('portfolio_skills');
+        localStorage.removeItem('portfolio_extracurriculars');
+        localStorage.removeItem('portfolio_experiences');
+        localStorage.removeItem('portfolio_research_focus');
+        localStorage.removeItem('portfolio_coursework');
+        localStorage.removeItem('portfolio_academics');
+        
+        // Let core script re-initialize defaults
+        window.location.reload();
+      }
+    }
+    
+    function showStatus(text, color) {
+      const statusDiv = document.getElementById('db-status');
+      statusDiv.textContent = text;
+      statusDiv.style.color = color;
+      setTimeout(() => {
+        statusDiv.textContent = "";
+      }, 4000);
+    }
+    
+    function escapeHTML(str) {
+      if (!str) return "";
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

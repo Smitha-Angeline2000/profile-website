@@ -48,103 +48,120 @@
   </nav>
 
   <!-- ABOUT SECTION -->
-
-  <section>
-
-    <h1 class="section-title">
-      About Me
-    </h1>
-
-    <div class="card-container">
-
-      <div class="card">
-
-        <h3>
-          Background
-        </h3>
-
-        <p>
-          I am an Electronics and Communication Engineering student specializing in Biomedical Engineering with strong interests in healthcare technology, embedded systems, and interdisciplinary engineering.
+  <section class="about-hero reveal">
+    <div class="about-grid" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; margin-bottom: 60px; align-items: start;">
+      <div class="about-left">
+        <div class="section-tag" style="margin-bottom: 20px; display: inline-block;">BIOGRAPHY</div>
+        <h2 style="font-size: 32px; color: #93c5fd; margin-bottom: 25px; font-weight: 600;">Smitha Angeline Solomon</h2>
+        <p style="font-size: 17px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.8;">
+          I am currently pursuing a B.Tech in Electronics and Communication Engineering with a specialization in Biomedical Engineering at Vellore Institute of Technology (VIT). My academic and research pathway lies at the precise intersection of advanced hardware development and intelligent healthcare solutions.
         </p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Technical Interests
-        </h3>
-
-        <p>
-          My areas of interest include biomedical instrumentation, biosignal processing, embedded systems, wearable healthcare devices, prosthetics, and intelligent medical systems.
+        <p style="font-size: 17px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.8;">
+          With a deep interest in microcontroller systems, sensor physics, and biomedical instrumentation, I build practical electronics that can acquire, filter, and process physiological signals like ECG and PPG in real-time. My project portfolio highlights my technical focus on cuffless blood pressure estimation systems, continuous climate diagnostic IoT digital twins, and contact-free heart rate webcams using advanced OpenCV signal analysis.
         </p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Long-Term Vision
-        </h3>
-
-        <p>
-          I aim to develop strong engineering skills that combine software, electronics, and healthcare innovation to build impactful medical technologies and intelligent healthcare solutions.
+        <p style="font-size: 17px; color: #cbd5e1; margin-bottom: 30px; line-height: 1.8;">
+          Beyond technical coding and hardware debugging, I enjoy collaborating in dynamic engineering environments. Participating in national hackathons and ideathons has allowed me to apply rapid prototyping systems to solve practical clinical challenges, earning high achievements under the "She Cares" track and multiple clinical design milestones.
         </p>
-
+        <a href="assets/resume.pdf" download class="btn">
+          <i class="fa-solid fa-file-arrow-down"></i> Download Resume
+        </a>
       </div>
-
+      <div class="about-right card" style="opacity: 1; transform: translateY(0); margin-top: 50px;">
+        <h3 style="margin-bottom: 20px; font-size: 22px; color: #60a5fa;"><i class="fa-solid fa-graduation-cap"></i> VIT Academics</h3>
+        <p style="font-size: 15px; margin-bottom: 15px;"><strong>Degree:</strong> B.Tech in Electronics & Communication Engineering</p>
+        <p style="font-size: 15px; margin-bottom: 15px;"><strong>Specialization:</strong> Biomedical Engineering</p>
+        <p style="font-size: 15px; margin-bottom: 15px;"><strong>Institution:</strong> Vellore Institute of Technology, Vellore</p>
+        <p style="font-size: 15px; margin-bottom: 25px;"><strong>Current CGPA:</strong> 8.30 / 10.0</p>
+        <div style="border-top: 1px solid rgba(59, 130, 246, 0.15); padding-top: 20px;">
+          <h4 style="color: #a78bfa; margin-bottom: 12px; font-size: 16px;">Core Competencies</h4>
+          <div class="tech-stack" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2); padding: 5px 10px; border-radius: 20px; font-size: 12px; color: #22d3ee;">Biosignal Acquisition</span>
+            <span style="background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2); padding: 5px 10px; border-radius: 20px; font-size: 12px; color: #22d3ee;">Embedded Systems</span>
+            <span style="background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2); padding: 5px 10px; border-radius: 20px; font-size: 12px; color: #22d3ee;">Microcontroller Interfacing</span>
+            <span style="background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2); padding: 5px 10px; border-radius: 20px; font-size: 12px; color: #22d3ee;">OpenCV & NumPy Processing</span>
+          </div>
+        </div>
+      </div>
     </div>
-
   </section>
 
-  <!-- SKILLS SNAPSHOT -->
-
-  <section>
-
-    <h2 class="section-title">
-      Core Strengths
-    </h2>
-
-    <div class="card-container">
-
-      <div class="card">
-
-        <h3>
-          Problem Solving
-        </h3>
-
-        <p>
-          Interested in system-level analysis, engineering problem solving, and technical implementation.
+  <!-- ENGINEERING EXPERIENCE SECTION -->
+  <section class="experience-section reveal-left">
+    <h2 class="section-title">Engineering & Academic Experience</h2>
+    <div class="card-container" style="display: grid; grid-template-columns: 1fr; gap: 30px;">
+      
+      <!-- Experience 1 -->
+      <div class="card" style="opacity: 1; transform: translateY(0); display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(96, 165, 250, 0.1); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="margin-bottom: 0; font-size: 20px;"><i class="fa-solid fa-laptop-code" style="color: #22d3ee; margin-right: 8px;"></i> Biomedical Hardware Developer</h3>
+          <span style="background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;">2025 - Present</span>
+        </div>
+        <p style="margin-bottom: 10px;">
+          Designed and debugged cuffless blood pressure systems integrating MAX30102 PPG and AD8232 ECG analog front-ends. Programmed microcontrollers in C++ for serial data transmission, active analog filtering calibration, and dynamic pulse calculation.
         </p>
-
+        <ul style="padding-left: 20px; color: #cbd5e1; list-style-type: square;">
+          <li style="margin-bottom: 8px;">Implemented hardware-level bandpass filters to isolate physiological frequency bands.</li>
+          <li style="margin-bottom: 8px;">Validated calculations utilizing open-source scientific Python packages (NumPy, SciPy).</li>
+        </ul>
       </div>
 
-      <div class="card">
-
-        <h3>
-          Hardware + Software
-        </h3>
-
-        <p>
-          Building interdisciplinary skills across electronics, embedded systems, programming, and biomedical applications.
+      <!-- Experience 2 -->
+      <div class="card" style="opacity: 1; transform: translateY(0); display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(96, 165, 250, 0.1); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="margin-bottom: 0; font-size: 20px;"><i class="fa-solid fa-network-wired" style="color: #3b82f6; margin-right: 8px;"></i> IoT Systems Prototyper</h3>
+          <span style="background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;">2025</span>
+        </div>
+        <p style="margin-bottom: 10px;">
+          Created and deployed an environmental digital twin of a refrigerator with smart sensors and a remote dashboard. Linked the embedded system to Firebase Realtime Database and integrated OpenAI diagnostics.
         </p>
-
+        <ul style="padding-left: 20px; color: #cbd5e1; list-style-type: square;">
+          <li style="margin-bottom: 8px;">Connected HTML5 frontend dashboards with dynamic database listeners.</li>
+          <li style="margin-bottom: 8px;">Presented functional IoT prototypes to engineering faculties at VIT, receiving positive technical evaluations.</li>
+        </ul>
       </div>
 
-      <div class="card">
-
-        <h3>
-          Continuous Learning
-        </h3>
-
-        <p>
-          Focused on consistently improving technical depth through projects, coursework, experimentation, and practical implementation.
+      <!-- Experience 3 -->
+      <div class="card" style="opacity: 1; transform: translateY(0); display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(96, 165, 250, 0.1); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="margin-bottom: 0; font-size: 20px;"><i class="fa-solid fa-trophy" style="color: #a78bfa; margin-right: 8px;"></i> Clinical Innovation Leader</h3>
+          <span style="background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;">2025 - Present</span>
+        </div>
+        <p style="margin-bottom: 10px;">
+          Participated in 7 national-level hackathons and ideathons, leading hardware-design subdivisions to research and brainstorm healthcare engineering requirements.
         </p>
-
+        <ul style="padding-left: 20px; color: #cbd5e1; list-style-type: square;">
+          <li style="margin-bottom: 8px;">Won 2nd place in the IAC Hackathon (September 2025).</li>
+          <li style="margin-bottom: 8px;">Earned track honors in "She Cares" under the Think Her Series Ideathon (September 2025).</li>
+        </ul>
       </div>
-
     </div>
+  </section>
 
+  <!-- COURSEWORK SNAPSHOT SECTION -->
+  <section class="coursework-section reveal-scale">
+    <h2 class="section-title">Core VIT Coursework Highlights</h2>
+    <div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+      <div class="card" style="opacity: 1; transform: translateY(0); padding: 25px; text-align: center; border: 1px solid rgba(34, 211, 238, 0.1);">
+        <i class="fa-solid fa-wave-square" style="font-size: 32px; color: #22d3ee; margin-bottom: 15px;"></i>
+        <h4 style="margin-bottom: 10px; font-size: 18px;">Biosignal Processing</h4>
+        <p style="font-size: 14px; color: #cbd5e1;">Study of continuous-time EKG, EMG, and EEG filtering, frequency spectrum analysis, and baseline wander correction algorithms.</p>
+      </div>
+      <div class="card" style="opacity: 1; transform: translateY(0); padding: 25px; text-align: center; border: 1px solid rgba(34, 211, 238, 0.1);">
+        <i class="fa-solid fa-microchip" style="font-size: 32px; color: #22d3ee; margin-bottom: 15px;"></i>
+        <h4 style="margin-bottom: 10px; font-size: 18px;">Microcontroller Interfacing</h4>
+        <p style="font-size: 14px; color: #cbd5e1;">Practical design with Arduino and STM boards, assembly/C programming, SPI, I2C, and serial transmission protocols.</p>
+      </div>
+      <div class="card" style="opacity: 1; transform: translateY(0); padding: 25px; text-align: center; border: 1px solid rgba(34, 211, 238, 0.1);">
+        <i class="fa-solid fa-stethoscope" style="font-size: 32px; color: #22d3ee; margin-bottom: 15px;"></i>
+        <h4 style="margin-bottom: 10px; font-size: 18px;">Medical Instrumentation</h4>
+        <p style="font-size: 14px; color: #cbd5e1;">Analysis of instrumentation amplifiers, active isolation circuits, biosensor transducers, and clinical safety standards.</p>
+      </div>
+      <div class="card" style="opacity: 1; transform: translateY(0); padding: 25px; text-align: center; border: 1px solid rgba(34, 211, 238, 0.1);">
+        <i class="fa-solid fa-heart-pulse" style="font-size: 32px; color: #22d3ee; margin-bottom: 15px;"></i>
+        <h4 style="margin-bottom: 10px; font-size: 18px;">Human Anatomy</h4>
+        <p style="font-size: 14px; color: #cbd5e1;">Introductory review of cardiovascular, nervous, and muscle cell electrophysiology, and organ function dynamics.</p>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
